@@ -10,9 +10,9 @@ reg [17:0] CSR_weight_mem [0:2**14-1];
 initial
 begin
  //This line is for the older version of vivado on vlx server
- //$readmemb({"/home/s2033411/ensemble_spiking/mem/", FILENAME}, CSR_weight_mem);
+ $readmemb({"/home/s2033411/FPGA_proj/bin_ratio_ensemble_SNN_updated/mem/", FILENAME}, CSR_weight_mem);
  //This line is for the newer version of vivado on linux laptop
- $readmemb(FILENAME, CSR_weight_mem);
+ //$readmemb(FILENAME, CSR_weight_mem);
 end
 
 

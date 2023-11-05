@@ -12,9 +12,9 @@ reg [9:0] offset_mem [0:NEURON_NUM-1];
 initial
 begin
  //This line is for the older version of vivado on vlx server
- //$readmemb({"/home/s2033411/ensemble_spiking/mem/", FILENAME}, offset_mem);
+ $readmemb({"/home/s2033411/FPGA_proj/bin_ratio_ensemble_SNN_updated/mem/", FILENAME}, offset_mem);
  //This line is for the newer version of vivado on linux laptop
- $readmemb(FILENAME, offset_mem);
+ //$readmemb(FILENAME, offset_mem);
 end
 
 

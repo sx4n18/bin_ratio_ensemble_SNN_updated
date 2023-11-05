@@ -35,10 +35,11 @@ module acc_encapsule_IF( input [7:0] activation,
 
 
   logic signed [15:0] accumulator;
+  logic signed [15:0] voltage_diff;
   parameter Threshold = 127;
   wire [15:0] internal_sum;
 
-IF_neuron mulplex_IF_neuron(activation, weight, accumulator, mem_vol_diff_2_be_add, arithm, internal_sum);
+IF_neuron mulplex_IF_neuron(activation, weight, accumulator, voltage_diff, arithm, internal_sum);
 
 
 
@@ -60,7 +61,7 @@ begin
             //post_mem_vol_diff logic 
             if(arithm) // accumulation
             begin
-                post_mem_vol_diff <= mem_vol_diff_2_be_add; // difference
+                post_mem_vol_diff <= voltage_diff; // difference
             end
             else  // multiplication and accumulation
             begin
@@ -84,6 +85,7 @@ begin
           else if(load_en) // loading the voltage into the neuron
                begin
                  accumulator <= input_mem_vol;
+                 voltage_diff <= mem_vol_diff_2_be_add;
                end
           else if (input_valid) //input is valid
           begin           
