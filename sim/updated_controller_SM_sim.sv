@@ -40,12 +40,16 @@ module updated_controller_SM_sim(
     wire [15:0] mem_vol_before_process;
     wire [15:0] voltage_diff_to_neuron;
     wire [15:0] processed_mem_vol;
+    wire [7:0] weight_out_mem;
     logic [7:0] weight_delayed;
     
     logic export_voltage_delayed;
     wire [9:0] weight_index;
     wire [7:0] activation_b4_neuron;
     logic w_n_a_valid_delayed;
+    logic [5:0] AER_reminder;
+    wire [5:0] spk_AER;
+    
     
     controller_SM_updated SM_uut(
           clk,
@@ -121,7 +125,18 @@ module updated_controller_SM_sim(
         weight_delayed <= weight_out_mem;
         
     end
-                          
+    
+    always_ff@(posedge clk)
+    begin
+        if(spk)
+        AER_reminder <= offset_mem_addr;
+        else
+        AER_reminder <= AER_reminder;
+    end
+    
+    
+    
+                     
     always_comb
     begin
         if(vol_mem_control)
@@ -134,7 +149,7 @@ module updated_controller_SM_sim(
     end
    
    assign voltage_mem_wr_en = export_voltage_delayed | vol_mem_control; 
-    
+   assign spk_AER = spk? offset_mem_addr : AER_reminder;   
     
    initial
    begin

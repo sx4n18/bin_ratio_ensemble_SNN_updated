@@ -14,9 +14,9 @@ reg [7:0] input_data_value [0:INPUT_NEURON_NUM-1];
 initial
 begin
    //This line is for the older version of vivado on vlx server
-   $readmemb("/home/s2033411/FPGA_proj/bin_ratio_ensemble_SNN_updated/mem/input_value_int.mem", input_data_value);
+   //$readmemb("/home/s2033411/FPGA_proj/bin_ratio_ensemble_SNN_updated/mem/input_value_int.mem", input_data_value);
    //This line is for the newer version of vivado on linux laptop
-   //$readmemb("input_value_int.mem", input_data_value);
+   $readmemb("input_value_int.mem", input_data_value);
 end
 //This initialisation only happens because I needed values inside to do the test
 
