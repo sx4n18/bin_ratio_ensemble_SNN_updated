@@ -34,7 +34,7 @@ module Spike_generation_TOP #(INPUT_SIZE=1023) (
     
     
 // internal registers and wires    
-wire load_voltage, export_voltage, w_n_a_valid, vol_mem_control, vol_mem_control_sm, arithm;  
+wire load_voltage, export_voltage, w_n_a_valid, vol_mem_control, vol_mem_control_sm;  
 reg  export_voltage_delayed, w_n_a_valid_dlayed;
 wire [5:0] offset_mem_addr;
 reg  [5:0] output_spike_reminder;
@@ -42,7 +42,7 @@ wire [7:0] weight_out_of_mem, ACT_B4_NEURON;
 reg  [7:0] weight_delayed;
 wire [9:0] off_set_value, ROW_INDEX;
 wire [13:0] CSR_w_addr;
-wire [15:0] init_mem_vol, pre_mem_vol, processed_mem_vol, input_mem_vol_diff, output_mem_vol_diff;
+wire [15:0] init_mem_vol, pre_mem_vol, processed_mem_vol;
 reg  [15:0] init_or_processed_mem_vol;
 
 //parameters to be passed into the instants
@@ -79,13 +79,11 @@ offset_memory_first_layer #(40, offset_mem_file_name) offset_memory_unit(
 
     
 //  voltage memory
-double_input_voltage_mem voltage_memory_unit (clk,
+voltage_mem #(40) voltage_memory_unit (clk,
                    vol_mem_control,
                    offset_mem_addr,
                    init_or_processed_mem_vol,
-                   input_mem_vol_diff,
-                   pre_mem_vol,
-                   output_mem_vol_diff,
+                   pre_mem_vol
 
              );
 
@@ -107,15 +105,12 @@ weight_mem #(CSR_mem_file_name) CSR_weight_memory_unit   (clk,
 acc_encapsule_IF  mux_neuron_unit ( ACT_B4_NEURON,
                                    weight_delayed,
                          pre_mem_vol,
-                         output_mem_vol_diff,
                          clk,
                          rst_n,
                          export_voltage,
                          load_voltage,
-                         arithm,
                          w_n_a_valid_dlayed,
                          processed_mem_vol,
-                         input_mem_vol_diff,
                          spike_out);
 
 

@@ -43,6 +43,7 @@ module controller_SM_updated(
     reg [3:0] current_state;
     reg [3:0] next_state;
     reg [9:0] off_set_value_rec;
+    reg [7:0] delay_cnt;
     //reg [1:0] tidy_cnt;
     parameter IDLE = 1;
     parameter Init = 0;
@@ -68,6 +69,7 @@ module controller_SM_updated(
             time_step_cnt <= 0;
             CSR_w_addr <= 0;
             off_set_value_rec <= 0;
+            delay_cnt <= 0;
         end
         else
         begin
@@ -119,7 +121,13 @@ module controller_SM_updated(
             
             tidy_up:
             begin
-            
+                if(time_step_cnt != 0)
+                begin
+                    if(delay_cnt == 69)
+                        delay_cnt <= 0;
+                    else
+                        delay_cnt <= delay_cnt +1;
+                end
             end
             
             dump_mem_vol_0:
@@ -265,7 +273,12 @@ module controller_SM_updated(
         
         tidy_up:
         begin
-            next_state = dump_mem_vol_0;
+            if(time_step_cnt ==0)
+                next_state = dump_mem_vol_0;
+            else if(delay_cnt == 69)
+                next_state = dump_mem_vol_0;
+            else
+                next_state = tidy_up;
         end
         
         dump_mem_vol_0:

@@ -60,7 +60,7 @@ module Bin_ratio_spiking_net #(parameter diagonal=0)(
 
     );
     
-    Spike_generation_TOP #(input_number) spike_gen_unit(
+    Spike_generation_TOP_updated #(input_number) spike_gen_unit(
       clk,
       rst_n,
       prepro_dat_addr,
