@@ -51,6 +51,7 @@ begin
      out_mem_vol <= 0;
      spike_out <= 0;
      post_mem_vol_diff <= 0;
+     voltage_diff <= 0;
      end
     else
       begin

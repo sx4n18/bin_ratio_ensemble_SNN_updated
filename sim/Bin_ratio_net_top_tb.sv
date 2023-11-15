@@ -48,7 +48,7 @@ module Bin_ratio_net_top_tb(
     trans_start = 0;
     #1
     rst_n = 0;
-    #2
+    #100
     rst_n = 1;
     #50 // Fisrt sample should be giving 11
     trans_start = 1;
