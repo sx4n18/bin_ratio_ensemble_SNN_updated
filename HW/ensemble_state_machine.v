@@ -76,12 +76,12 @@ module ensemble_state_machine #(num_of_net = 20)(
     
     final_evaluation:
     begin
-        if(net_index <num_of_net)
+        if(net_index <num_of_net) // start collecting results
         begin
             score_board[label_inferred] <= score_board[label_inferred] +1;
             net_index <= net_index +1;
         end
-        else if (net_index == num_of_net)
+        else if (net_index == num_of_net) // collected all the nets results
         begin
             if(SB_index < 18)
             begin

@@ -29,6 +29,8 @@ module Bin_ratio_ensemble_net_tb(
     wire request_over_ensemble, infer_ready_ensemble;
     wire [4:0] final_winner_over_ensemble;
     
+    // original ensemble of 20 nets
+    /* 
     Bin_ratio_ensemble_spiking_net #(20)ensemble_uut(
                 clk,
                 rst_n,
@@ -39,7 +41,19 @@ module Bin_ratio_ensemble_net_tb(
                 infer_ready_ensemble
 
     );
+    */
     
+    // trimmed ensemble of 5 nets
+    
+    Trimmed_bin_ratio_ensemble_spiking_net trimmed_ensemble_uut(
+                 clk,
+                 rst_n,
+                 trans_start,
+                 bin_cnt,
+                 request_over_ensemble,
+                 final_winner_over_ensemble,
+                 infer_ready_ensemble
+    );
     
     
     initial
